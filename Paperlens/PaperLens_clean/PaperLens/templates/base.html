@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}PaperLens{% endblock %} – AI Research Analysis</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="{{ url_for('index') }}" class="brand">
+        <span class="brand-icon">🔬</span>
+        <span class="brand-name">PaperLens</span>
+        <span class="brand-tag">AI Research Paper Analysis</span>
+      </a>
+    </div>
+  </header>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-wrap">
+        {% for cat, msg in messages %}
+          <div class="flash flash-{{ cat }}">
+            {% if cat == 'error' %}⚠️{% else %}✅{% endif %} {{ msg }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    PaperLens &copy; 2024 &nbsp;·&nbsp;
+    Flask · BART · KeyBERT &nbsp;·&nbsp;
+    Final Year B.Tech AI &amp; DS Project
+  </footer>
+
+</body>
+</html>

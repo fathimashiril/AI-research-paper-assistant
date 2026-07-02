@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Analysing…{% endblock %}
+
+{% block content %}
+
+<div class="loading-wrap">
+
+  <div class="spinner"></div>
+
+  <h2 class="loading-title">Analysing Your Paper…</h2>
+
+  <p class="loading-sub">
+    BART is reading and summarising the document.<br>
+    This usually takes <strong>3 – 8 minutes</strong> depending on paper length.<br>
+    This page will refresh automatically — <strong>do not close the tab.</strong>
+  </p>
+
+  <div class="steps">
+    <div class="step">📄 Extract &amp; clean text</div>
+    <div class="step">🧠 Generate section summaries (BART)</div>
+    <div class="step">✅ Render results</div>
+  </div>
+
+</div>
+
+<!--
+  Poll /status/<job_id> every 8 seconds via meta-refresh trick.
+  When status == "done"  → redirect to /result/<job_id>
+  When status == "error" → redirect to / with message
+  We use a tiny inline script-free approach: meta refresh + server redirect.
+  The actual smart redirect is done by a hidden form auto-submit via
+  meta http-equiv refresh pointing back to this same loading page,
+  which re-checks the job status on the server side.
+-->
+
+<!-- Refresh this page every 8 s; the route will redirect when ready -->
+<meta http-equiv="refresh" content="8; url=/check/{{ job_id }}" />
+
+{% endblock %}

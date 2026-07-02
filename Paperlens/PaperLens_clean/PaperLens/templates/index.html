@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+  <h1 class="hero-title">Analyse Any Research Paper in Minutes</h1>
+  <p class="hero-sub">
+    Upload a PDF — PaperLens will extract an executive summary,
+    key contributions, methodology, findings and conclusion
+    using <strong>BART</strong> and <strong>KeyBERT</strong>, fully offline.
+  </p>
+</section>
+
+<div class="card upload-card">
+  <h2 class="card-title">📄 Upload Research Paper</h2>
+
+  <form action="/analyze" method="POST" enctype="multipart/form-data">
+
+    <div class="upload-zone">
+      <div class="uz-icon">📂</div>
+      <p class="uz-label">Choose a PDF file (max 50 MB, text-based)</p>
+      <input type="file" name="pdf_file" id="pdf_file"
+             accept=".pdf" required class="file-native" />
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg">
+      🔍 &nbsp;Analyse Paper
+    </button>
+
+  </form>
+</div>
+
+<section class="features">
+  <h2 class="feat-title">What PaperLens Generates</h2>
+  <div class="feat-grid">
+    <div class="feat-card"><span class="fi">📝</span><h3>Executive Summary</h3><p>High-level overview of the whole paper.</p></div>
+    <div class="feat-card"><span class="fi">💡</span><h3>Key Contributions</h3><p>Novel ideas and claims the paper introduces.</p></div>
+    <div class="feat-card"><span class="fi">🔬</span><h3>Methodology</h3><p>How the research was designed and conducted.</p></div>
+    <div class="feat-card"><span class="fi">📊</span><h3>Main Findings</h3><p>Core results and performance metrics.</p></div>
+    <div class="feat-card"><span class="fi">🏁</span><h3>Conclusion</h3><p>Takeaways, limitations, and future work.</p></div>
+    <div class="feat-card"><span class="fi">🏷️</span><h3>Keywords</h3><p>Top semantic keyphrases via KeyBERT.</p></div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Results{% endblock %}
+
+{% block content %}
+
+<div class="result-header">
+  <h1 class="result-title">{{ title }}</h1>
+  {% if authors %}
+  <p class="result-authors">{{ authors }}</p>
+  {% endif %}
+</div>
+
+<!-- META STRIP -->
+<div class="meta-strip">
+  <div class="meta-item">
+    <span class="mi-icon">📄</span>
+    <span class="mi-label">Pages</span>
+    <span class="mi-val">{{ meta.pages }}</span>
+  </div>
+  <div class="meta-div"></div>
+  <div class="meta-item">
+    <span class="mi-icon">🔤</span>
+    <span class="mi-label">Words</span>
+    <span class="mi-val">{{ "{:,}".format(meta.word_count) }}</span>
+  </div>
+  <div class="meta-div"></div>
+  <div class="meta-item">
+    <span class="mi-icon">⏱️</span>
+    <span class="mi-label">Reading Time</span>
+    <span class="mi-val">{{ meta.reading_time }}</span>
+  </div>
+</div>
+
+
+<!-- SECTIONS -->
+<div class="card sec-card">
+  <div class="sec-hdr">
+    <span>📝</span><h2>Executive Summary</h2>
+    <button class="copy-btn" onclick="copyText(this, 'sec-0')">Copy</button>
+  </div>
+  <p class="sec-body" id="sec-0">{{ summaries.executive_summary }}</p>
+</div>
+
+<div class="card sec-card">
+  <div class="sec-hdr">
+    <span>💡</span><h2>Key Contributions</h2>
+    <button class="copy-btn" onclick="copyText(this, 'sec-1')">Copy</button>
+  </div>
+  <p class="sec-body" id="sec-1">{{ summaries.key_contributions }}</p>
+</div>
+
+<div class="card sec-card">
+  <div class="sec-hdr">
+    <span>🔬</span><h2>Methodology</h2>
+    <button class="copy-btn" onclick="copyText(this, 'sec-2')">Copy</button>
+  </div>
+  <p class="sec-body" id="sec-2">{{ summaries.methodology }}</p>
+</div>
+
+<div class="card sec-card">
+  <div class="sec-hdr">
+    <span>📊</span><h2>Main Findings</h2>
+    <button class="copy-btn" onclick="copyText(this, 'sec-3')">Copy</button>
+  </div>
+  <p class="sec-body" id="sec-3">{{ summaries.main_findings }}</p>
+</div>
+
+<div class="card sec-card">
+  <div class="sec-hdr">
+    <span>🏁</span><h2>Conclusion</h2>
+    <button class="copy-btn" onclick="copyText(this, 'sec-4')">Copy</button>
+  </div>
+  <p class="sec-body" id="sec-4">{{ summaries.conclusion }}</p>
+</div>
+
+<!-- KEYWORDS removed -->
+
+<div class="bottom-actions">
+  <a href="{{ url_for('index') }}" class="btn btn-outline btn-lg">⬆️ Analyse Another Paper</a>
+</div>
+
+<script>
+function copyText(btn, id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = "Copied!";
+    btn.classList.add("copied");
+    setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 2000);
+  });
+}
+</script>
+
+{% endblock %}
